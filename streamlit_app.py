@@ -3,7 +3,8 @@ import streamlit as st
 import os
 
 # Autenticar la API de OpenAI
-openai.api_key = os.getenv("tu_api_key")
+openai.api_key = os.environ.get("OPENAI_API_KEY")
+
 
 # Definir el modelo de OpenAI
 model_engine = "text-davinci-003"
