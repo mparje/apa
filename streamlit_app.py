@@ -1,10 +1,9 @@
 import openai
 import streamlit as st
-import os
+from docx import Document
 
 # Autenticar la API de OpenAI
-openai.api_key = os.environ.get("OPENAI_API_KEY")
-
+openai.api_key = os.environ.get("YOUR_OPENAI_API")
 
 # Definir el modelo de OpenAI
 model_engine = "text-davinci-003"
@@ -28,15 +27,33 @@ def app():
     st.title("Editor de Referencias Bibliográficas")
 
     # Obtener la entrada del usuario
-    prompt = st.text_area("Introduzca el texto que desea editar", value="Eres un editor que tiene la tarea de editar papers para una revista científica. Tu haz pedido que usean el sistema APA para las referencias, pero muchos usan otra forma de referenciar. Tu labor es cambiar las referencias bibliográficas al sistema APA más actual.")
+    option = st.selectbox("Seleccione una opción", ["Pegar el texto", "Subir archivo .docx"])
 
-    if prompt:
-        # Generar el texto con OpenAI
-        message = generate_text(prompt)
+    if option == "Pegar el texto":
+        prompt = st.text_area("Introduzca el texto que desea editar", value="Eres un editor que tiene la tarea de editar papers para una revista científica. Tu haz pedido que usean el sistema APA para las referencias, pero muchos usan otra forma de referenciar. Tu labor es cambiar las referencias bibliográficas al sistema APA más actual.")
 
-        # Mostrar el texto generado en la página
-        st.header("Texto Editado")
-        st.write(message)
+        if prompt:
+            # Generar el texto con OpenAI
+            message = generate_text(prompt)
+
+            # Mostrar el texto generado en la página
+            st.header("Texto Editado")
+            st.write(message)
+
+    elif option == "Subir archivo .docx":
+        uploaded_file = st.file_uploader("Subir archivo .docx", type="docx")
+
+        if uploaded_file is not None:
+            # Leer el archivo .docx
+            doc = Document(uploaded_file)
+            text = "\n".join([p.text for p in doc.paragraphs])
+
+            # Generar el texto con OpenAI
+            message = generate_text(text)
+
+            # Mostrar el texto generado en la página
+            st.header("Texto Editado")
+            st.write(message)
 
 # Ejecutar la aplicación de streamlit
 if __name__ == "__main__":
