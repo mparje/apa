@@ -32,7 +32,7 @@ def app():
     option = st.selectbox("Seleccione una opción", ["Pegar el texto", "Subir archivo .docx"])
 
     if option == "Pegar el texto":
-        prompt = st.text_area("Introduzca el texto que desea editar", value="Eres un editor que tiene la tarea de editar papers para una revista científica. Tu labor es extrae las referencias y conveertirlas a formato APA"
+        prompt = st.text_area("Introduzca el texto que desea editar", value="Eres un editor que tiene la tarea de editar papers para una revista científica. Tu labor es extrae las referencias y conveertirlas a formato APA")
         if prompt:
             # Generar el texto con OpenAI
             message = generate_text(prompt)
