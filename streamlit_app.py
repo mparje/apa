@@ -1,6 +1,7 @@
 import openai
 import streamlit as st
 from docx import Document
+import os
 
 # Autenticar la API de OpenAI
 openai.api_key = os.environ.get("YOUR_OPENAI_API")
