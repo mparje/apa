@@ -3,8 +3,9 @@ import streamlit as st
 from docx import Document
 import os
 
-# Autenticar la API de OpenAI
-openai.api_key = os.environ.get("YOUR_OPENAI_API")
+# Establecer la clave API de GPT-4 desde la variable de entorno
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 # Definir el modelo de OpenAI
 model_engine = "text-davinci-003"
